@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937753583502",
+    "project_id": "bookmate-app-project",
+    "storage_bucket": "bookmate-app-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937753583502:android:2b784c69be081a1eec4edf",
+        "android_client_info": {
+          "package_name": "com.example.book_mate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyO8CGv1ztFrGpMEC-r4D_WJ31y4Z8qew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
