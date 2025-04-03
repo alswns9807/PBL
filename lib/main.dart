@@ -3,6 +3,7 @@ import 'package:book_mate/src/app.dart';
 import 'package:book_mate/src/common/interceptor/custom_interceptor.dart';
 import 'package:book_mate/src/common/model/naver_book_search_option.dart';
 import 'package:book_mate/src/common/repository/naver_api_repository.dart';
+import 'package:book_mate/src/splash/cubit/splash_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,20 +29,11 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (context) => NaverBookRepository(dio)
         )
       ],
-      child:Builder(
-        builder: (context) => FutureBuilder(
-          future: context.read<NaverBookRepository>().searchBooks(
-            const NaverBookSearchOption.init(query: '플러터')
-          ),
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return MaterialApp
-                (home: Center(child: Text
-                  ('${snapshot.data?.items?.length ?? 0}'),),);
-            }
-            return Container();
-          },
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => SplashCubit(),)
+        ],
+        child: const App()
       ),
     );
   }
