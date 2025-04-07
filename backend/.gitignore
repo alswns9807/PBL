@@ -1,16 +1,44 @@
-# Python
+# ▶ Python 캐시
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Virtual env
+# ▶ 가상환경
 venv/
 env/
+ENV/
+.venv/
 
-# VSCode
+# ▶ 패키지 매니저 캐시
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ▶ 운영체제 별 파일
+.DS_Store
+Thumbs.db
+
+# ▶ 에디터 설정 (VSCode, PyCharm 등)
 .vscode/
+.idea/
 
-# Secrets
+# ▶ 환경변수 (.env 파일은 업로드 금지!)
 .env
+*.env
 
-# DB
+# ▶ 테스트/빌드 관련
+*.log
 *.sqlite3
+coverage/
+htmlcov/
+.tox/
+dist/
+build/
+
+# ▶ FastAPI 관련 임시 파일
+*.db
+*.bak
+*.swp
+
+# ▶ 기타 백엔드 관련
+*.egg-info/
+.eggs/
