@@ -1,0 +1,16 @@
+fastapi==0.110.0
+uvicorn==0.29.0
+
+# ORM
+sqlalchemy==2.0.28
+psycopg2-binary==2.9.9
+
+# 데이터 모델
+pydantic==2.6.4
+python-dotenv==1.0.1
+
+# 외부 API 비동기 호출
+httpx==0.27.0
+
+# 개발 중 자동 재시작
+watchgod==0.8.2

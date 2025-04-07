@@ -6,7 +6,7 @@ from app.routers import books as books_router
 from app.routers import reading_records as reading_router
 from app.routers import note as note_router
 from app.routers import statistics as statistics_router
-
+from app.routers import books as books_router
 
 app = FastAPI()
 
@@ -18,11 +18,12 @@ note.Base.metadata.create_all(bind=engine)
 
 # 라우터 등록
 app.include_router(user_router.router)
-app.include_router(books_router.router)
 app.include_router(reading_router.router)
 app.include_router(note_router.router)
 app.include_router(statistics_router.router)
+app.include_router(books_router.router, prefix="/books", tags=["Books"])
 
 @app.get("/")
 def read_root():
     return {"message": "BookMate 백엔드"}
+

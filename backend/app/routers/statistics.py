@@ -7,6 +7,9 @@ from app.database import SessionLocal
 from app.models.reading_records import UserBook
 from app.models.book import Book
 
+from typing import List
+from app.schemas.book import BookOut  
+
 router = APIRouter(prefix="/statistics", tags=["Statistics"])
 
 def get_db():
@@ -106,3 +109,20 @@ def get_user_statistics(user_id: int, year: int = Query(default=datetime.now().y
         "longest_reading_book": longest_reading_book,
         "most_read_book": most_read_book
     }
+
+@router.get("/{user_id}/genre/{genre}", response_model=List[BookOut])
+def get_books_by_genre(user_id: int, genre: str, db: Session = Depends(get_db)):
+
+    books = (
+        db.query(Book)
+        .join(UserBook, Book.isbn == UserBook.isbn)
+        .filter(UserBook.user_id == user_id)
+        .filter(Book.genre == genre)
+        .order_by(UserBook.created_at.desc())
+        .all()
+    )
+
+    if not books:
+        raise HTTPException(status_code=404, detail=f"No books found for genre '{genre}'.")
+
+    return books

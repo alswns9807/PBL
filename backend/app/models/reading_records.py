@@ -17,3 +17,4 @@ class UserBook(Base):
     progress = Column(Integer)  # 읽은 페이지 수
     
     created_at = Column(DateTime, default=datetime.utcnow)
+    expectation = Column(Text, nullable=True) 
