@@ -17,3 +17,11 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 모델 클래스들이 상속받을 Base 클래스
 Base = declarative_base()
+
+# ✅ FastAPI 의존성 주입용 DB 세션 함수
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

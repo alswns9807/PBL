@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from typing import Optional, List
 from app.database import SessionLocal
 from app.models.reading_records import UserBook
 from app.schemas.reading_records import UserBookCreate, UserBookOut, UserBookUpdate
 from app.models.note import Note
 from app.schemas.reading_records import UserBookDetail
+from app.models.book import Book
 
 router = APIRouter(prefix="/reading", tags=["Reading Records"])
 
@@ -59,16 +61,6 @@ def create_user_book(record: UserBookCreate, db: Session = Depends(get_db)):
 def get_all_records(db: Session = Depends(get_db)):
     return db.query(UserBook).all()
 
-#특정 사용자 등록된 책 조회
-@router.get("/user/{user_id}", response_model=list[UserBookOut])
-def get_user_books(user_id: int, db: Session = Depends(get_db)):
-    records = (
-        db.query(UserBook)
-        .filter(UserBook.user_id == user_id)
-        .order_by(UserBook.created_at.desc())  #등록일 기준 정렬
-        .all()
-    )
-    return records
 
 #특정 사용자 등록된 책의 메모들 조회
 @router.get("/{user_book_id}", response_model=UserBookDetail)
@@ -149,3 +141,19 @@ def update_user_book(
     db.refresh(existing)
     return existing
 
+@router.get("/user/{user_id}", response_model=List[UserBookOut])
+def get_user_books_filtered(
+    user_id: int,
+    title: Optional[str] = Query(None, description="책 제목 필터"),
+    status: Optional[str] = Query(None, description="상태 필터 (읽음, 읽는 중, 읽을 예정)"),
+    db: Session = Depends(get_db)
+):
+     # 명시적으로 Book과 조인 (isbn 기준)
+    query = db.query(UserBook).join(Book, UserBook.isbn == Book.isbn).filter(UserBook.user_id == user_id)
+
+    if title:
+        query = query.filter(Book.title.ilike(f"%{title}%"))
+    if status:
+        query = query.filter(UserBook.status == status)
+
+    return query.order_by(UserBook.created_at.desc()).all()

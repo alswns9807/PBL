@@ -29,11 +29,29 @@ def get_books(db: Session = Depends(get_db)):
 
 @router.get("/search")
 async def search_books(q: str):
-    results = await search_books_from_aladin(q)
-    return results
+    raw_results = await search_books_from_aladin(q)
+
+    books = []
+
+    for item in raw_results:
+        isbn = item.get("isbn13")
+
+        # → ISBN이 있으면 LookUp으로 다시 요청
+        detailed = await fetch_book_from_aladin(isbn) if isbn else None
+
+        books.append({
+            "title": item.get("title"),
+            "isbn": isbn,
+            "author": item.get("author"),
+            "publisher": item.get("publisher"),
+            "cover": item.get("cover"),
+            "page_count": detailed.get("page_count") if detailed else None
+        })
+
+    return books
 
 @router.post("/fetch", response_model=BookOut)
-async def fetch_book(isbn: str, page_count: int, db: Session = Depends(get_db)):
+async def fetch_book(isbn: str, db: Session = Depends(get_db)):
     # 기존 등록 여부 확인
     existing = db.query(Book).filter(Book.isbn == isbn).first()
     if existing:
@@ -44,8 +62,9 @@ async def fetch_book(isbn: str, page_count: int, db: Session = Depends(get_db)):
     if not base_data:
         raise HTTPException(status_code=404, detail="알라딘에서 책 정보를 찾을 수 없습니다.")
 
-    # 2. 사용자 입력한 페이지 수 병합
-    base_data["page_count"] = page_count
+    # 2. page_count 없음 → 예외 처리
+    if not base_data.get("page_count"):
+        raise HTTPException(status_code=422, detail="쪽수 정보를 가져올 수 없습니다.")
 
     # 3. 저장
     book = Book(**base_data)

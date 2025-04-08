@@ -12,7 +12,8 @@ async def search_books_from_aladin(query: str, max_results: int = 10):
         "output": "js",
         "Version": "20131101",
         "MaxResults": max_results,
-        "Cover": "Big"
+        "Cover": "Big",
+        "OptResult": "ebookList,usedList,reviewList,fullDescription,toc,story,authors"
     }
 
     async with httpx.AsyncClient(timeout=5.0) as client:
@@ -34,7 +35,8 @@ async def fetch_book_from_aladin(isbn: str):
         "ItemIdType": "ISBN13",
         "output": "js",
         "Cover": "Big",
-        "Version": "20131101"
+        "Version": "20131101",
+        "OptResult": "ebookList,usedList,reviewList,fullDescription,toc,story,authors"
     }
 
     async with httpx.AsyncClient(timeout=5.0) as client:
@@ -47,6 +49,8 @@ async def fetch_book_from_aladin(isbn: str):
                 return None
 
             item = data["item"][0]
+            sub = item.get("subInfo", {})
+
             return {
                 "isbn": item.get("isbn13"),
                 "title": item.get("title"),
@@ -56,7 +60,7 @@ async def fetch_book_from_aladin(isbn: str):
                 "cover_image": item.get("cover"),
                 "description": item.get("description"),
                 "genre": item.get("categoryName"),
-                "page_count": item.get("itemPage",0)
+                "page_count": sub.get("itemPage",0)
             }
         except Exception as e:
             print(f"[❌] 알라딘 상세조회 실패: {e}")
