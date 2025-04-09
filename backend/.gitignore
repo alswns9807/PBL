@@ -1,5 +1,5 @@
 # ▶ Python 캐시
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -21,7 +21,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# ▶ 환경변수 (.env 파일은 업로드 금지!)
+# ▶ 환경변수
 .env
 *.env
 
@@ -34,7 +34,7 @@ htmlcov/
 dist/
 build/
 
-# ▶ FastAPI 관련 임시 파일
+# ▶ FastAPI 임시 파일
 *.db
 *.bak
 *.swp
