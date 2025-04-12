@@ -15,7 +15,8 @@ class UserBookBase(BaseModel):
 class UserBookCreate(UserBookBase):
     user_id: int = Field(..., example=1)
     isbn: str = Field(..., example="9788956055461")
-
+    is_public: Optional[bool] = Field(default=True, example=True)
+    
     class Config:
         schema_extra = {
             "example": {
@@ -23,7 +24,8 @@ class UserBookCreate(UserBookBase):
                 "start_date": "2025-04-01",
                 "progress": 50,
                 "user_id": 1,
-                "isbn": "9788956055461"
+                "isbn": "9788956055461",
+                "is_public":True
             }
         }
 
@@ -32,6 +34,7 @@ class UserBookOut(UserBookBase):
     user_id: int
     isbn: str
     created_at: datetime
+    is_public: bool
 
     class Config:
         from_attributes = True
@@ -47,7 +50,8 @@ class UserBookUpdate(BaseModel):
     rating: Optional[int] = Field(None, example=None)
     review: Optional[str] = Field(None, example=None)
     expectation: Optional[str] = Field(None, example=None)
-
+    is_public: Optional[bool] = Field(None, example=True)
+    
     class Config:
         schema_extra = {
             "example": {
@@ -55,6 +59,7 @@ class UserBookUpdate(BaseModel):
                 "start_date": "2025-04-01",
                 "end_date": "2025-04-05",
                 "rating": 5,
-                "review": "재미있게 읽었어요!"
+                "review": "재미있게 읽었어요!",
+                "is_public":True
             }
         }

@@ -17,3 +17,4 @@ class Book(Base):
 
     # ✅ 기존 genre(str) 제거하고, 다대다 관계로 변경
     genres = relationship("Genre", secondary=book_genres_table, back_populates="books")
+    user_books = relationship("UserBook", back_populates="book")

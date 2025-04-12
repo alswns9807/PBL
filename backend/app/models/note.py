@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey
 from datetime import datetime
 from app.database import Base
+from sqlalchemy.orm import relationship
 
 class Note(Base):
     __tablename__ = "notes"
@@ -11,3 +12,5 @@ class Note(Base):
     content = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user_book = relationship("UserBook", back_populates="notes")
