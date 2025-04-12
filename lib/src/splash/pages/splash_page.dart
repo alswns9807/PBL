@@ -5,6 +5,8 @@ import 'package:book_mate/src/splash/cubit/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../common/cubit/authentication_cubit.dart';
+
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
@@ -14,6 +16,7 @@ class SplashPage extends StatelessWidget {
       listenWhen: (previous, current) => current.status == CommonStateStatus.loaded,
       listener: (context, state) {
         context.read<SplashCubit>().changeLoadStatus(LoadStatus.auth_check);
+        context.read<AuthenticationCubit>().init();
       },
       child: Scaffold(
         body: Stack(

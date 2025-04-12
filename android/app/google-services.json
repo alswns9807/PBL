@@ -12,7 +12,20 @@
           "package_name": "com.example.book_mate"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "937753583502-ho864latk72cnongdjo8up4nun7lnjqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.book_mate",
+            "certificate_hash": "257d99a4c08d236b394572da705f06812efec403"
+          }
+        },
+        {
+          "client_id": "937753583502-8qkc5271ve065slehovdvkh4oo85lvv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDyO8CGv1ztFrGpMEC-r4D_WJ31y4Z8qew"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937753583502-8qkc5271ve065slehovdvkh4oo85lvv2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "937753583502-838698cus5irha4ntanffeviad2pl392.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bookMate"
+              }
+            }
+          ]
         }
       }
     }

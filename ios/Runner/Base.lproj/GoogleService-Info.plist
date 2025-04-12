@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>937753583502-838698cus5irha4ntanffeviad2pl392.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.937753583502-838698cus5irha4ntanffeviad2pl392</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>937753583502-ho864latk72cnongdjo8up4nun7lnjqm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCmFTG6E4RjJQiwfg3tlrGdQD0SGamp_Wg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>937753583502</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.bookMate</string>
+	<key>PROJECT_ID</key>
+	<string>bookmate-app-project</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bookmate-app-project.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:937753583502:ios:754776a3f2fd2eacec4edf</string>
+</dict>
+</plist>

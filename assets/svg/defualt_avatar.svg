@@ -1,10 +1,17 @@
 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="17" cy="17" r="17" fill="#F4AA2B"/>
-<mask id="mask0_307_3946" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
-<circle cx="17" cy="17" r="17" fill="#C4C4C4"/>
+<g clip-path="url(#clip0_2001_3)">
+<path d="M17 34C26.3888 34 34 26.3888 34 17C34 7.61116 26.3888 0 17 0C7.61116 0 0 7.61116 0 17C0 26.3888 7.61116 34 17 34Z" fill="#9DCE62" fill-opacity="0.894118"/>
+<mask id="mask0_2001_3" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
+<path d="M17 34C26.3888 34 34 26.3888 34 17C34 7.61116 26.3888 0 17 0C7.61116 0 0 7.61116 0 17C0 26.3888 7.61116 34 17 34Z" fill="#C4C4C4"/>
 </mask>
-<g mask="url(#mask0_307_3946)">
-<ellipse cx="16.9991" cy="29.92" rx="12.92" ry="7.48" fill="#CA8000"/>
+<g mask="url(#mask0_2001_3)">
+<path d="M16.9991 37.4C24.1346 37.4 29.9191 34.0511 29.9191 29.92C29.9191 25.7889 24.1346 22.44 16.9991 22.44C9.86358 22.44 4.0791 25.7889 4.0791 29.92C4.0791 34.0511 9.86358 37.4 16.9991 37.4Z" fill="#698A41" fill-opacity="0.886275"/>
 </g>
-<ellipse cx="17.0009" cy="14.45" rx="6.12" ry="6.12" fill="#CA8000"/>
+<path d="M17.0009 20.57C20.3808 20.57 23.1209 17.83 23.1209 14.45C23.1209 11.07 20.3808 8.32999 17.0009 8.32999C13.6209 8.32999 10.8809 11.07 10.8809 14.45C10.8809 17.83 13.6209 20.57 17.0009 20.57Z" fill="#698A41" fill-opacity="0.886275"/>
+</g>
+<defs>
+<clipPath id="clip0_2001_3">
+<rect width="34" height="34" fill="white"/>
+</clipPath>
+</defs>
 </svg>
