@@ -3,4 +3,5 @@ enum CommonStateStatus{
   loading,
   loaded,
   error,
+  complete,
 }

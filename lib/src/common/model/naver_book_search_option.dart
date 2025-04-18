@@ -27,6 +27,20 @@ class NaverBookSearchOption extends Equatable{
 
   Map<String, dynamic> toMap() => _$NaverBookSearchOptionToJson(this);
 
+  NaverBookSearchOption copyWith({
+    NaverBookSearchType? sort,
+    int? start,
+    int? display,
+    String? query,
+  }) {
+    return NaverBookSearchOption(
+      sort: sort ?? this.sort,
+      start: start ?? this.start,
+      display: display ?? this.display,
+      query: query ?? this.query,
+    );
+  }
+
   @override
   List<Object?> get props => [
     sort,

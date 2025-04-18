@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../common/components/app_font.dart';
+import '../../common/components/input_widget.dart';
 import '../../common/cubit/authentication_cubit.dart';
 
 class HomePage extends StatefulWidget {
@@ -192,7 +195,7 @@ class _RecentlyReviewListWidget extends StatelessWidget {
             '더보기',
             fontWeight: FontWeight.bold,
             size: 14,
-            color: Color(0xffF4AA2B),
+            color: Color(0xe49dce62),
           )
         ],
       ),
@@ -237,7 +240,7 @@ class _RecentlyReviewListWidget extends StatelessWidget {
                             (bookInfo.reviewerUids?.length ?? 0))
                             .toStringAsFixed(2),
                         size: 16,
-                        color: Color(0xffF4AA2B),
+                        color: Color(0xe49dce62),
                       )
                     ]),
                   ),
