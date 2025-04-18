@@ -9,9 +9,11 @@
 2. source venv/bin/activate  # Windows면 venv\Scripts\activate
 
 ##필요 설치파일
+cd app
 pip install -r requirements.txt
 
 ##이후 실행
+cd ..
 uvicorn app.main:app --reload
 
 
