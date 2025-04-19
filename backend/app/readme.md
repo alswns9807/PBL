@@ -10,10 +10,12 @@
 
 ##필요 설치파일
 cd app
+backend/app 에서 실행
 pip install -r requirements.txt
 
 ##이후 실행
 cd ..
+backend 에서 실행
 uvicorn app.main:app --reload
 
 

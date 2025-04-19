@@ -7,6 +7,7 @@ from app.routers import reading_records as reading_router
 from app.routers import note as note_router
 from app.routers import statistics as statistics_router
 from app.routers import friend as friend_router
+from app.routers import recommendation as recommendation_router
 
 app = FastAPI()
 
@@ -25,6 +26,7 @@ app.include_router(note_router.router)
 app.include_router(statistics_router.router)
 app.include_router(books_router.router, prefix="/books", tags=["Books"])
 app.include_router(friend_router.router)
+app.include_router(recommendation_router.router)
 
 @app.get("/")
 def read_root():
