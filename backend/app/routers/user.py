@@ -7,7 +7,7 @@ from app.schemas.user import UserCreate, UserOut
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-# ✅ 사용자 등록
+# 사용자 등록
 @router.post("/", response_model=UserOut)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == user.email).first()
@@ -20,7 +20,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
-# ✅ 전체 사용자 조회 (검색 없을 시 전체 반환)
+# 전체 사용자 조회 (검색 없을 시 전체 반환)
 @router.get("/", response_model=List[UserOut])
 def get_users(
     keyword: Optional[str] = Query(None, description="이름 또는 이메일로 검색"),

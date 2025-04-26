@@ -24,7 +24,7 @@ router = APIRouter(
 )
 
 
-# 🔁 공통 응답 구조 함수
+# 공통 응답 구조 함수
 def build_friend_response(friend: Friend, current_user_id: int) -> FriendWithUser:
     if friend.requester_id == current_user_id:
         counterpart = friend.receiver
@@ -44,7 +44,7 @@ def build_friend_response(friend: Friend, current_user_id: int) -> FriendWithUse
     )
 
 
-# 📌 친구 요청 보내기
+#  친구 요청 보내기
 @router.post("/", response_model=FriendResponse)
 def send_friend_request(request: FriendRequestCreate, db: Session = Depends(get_db)):
     if request.requester_id == request.receiver_id:
@@ -70,7 +70,7 @@ def send_friend_request(request: FriendRequestCreate, db: Session = Depends(get_
     return friend_request
 
 
-# ✅ 친구 요청 수락
+# 친구 요청 수락
 @router.put("/{friend_id}/accept", response_model=FriendWithUser)
 def accept_friend_request(friend_id: int, current_user_id: int = Query(...), db: Session = Depends(get_db)):
     # 요청 조회
@@ -78,7 +78,7 @@ def accept_friend_request(friend_id: int, current_user_id: int = Query(...), db:
     if not friend_request:
         raise HTTPException(status_code=404, detail="요청이 존재하지 않습니다.")
 
-    # 🔒 수신자 확인
+    # 수신자 확인
     if friend_request.receiver_id != current_user_id:
         raise HTTPException(status_code=403, detail="이 요청을 수락할 권한이 없습니다.")
 
@@ -108,7 +108,7 @@ def accept_friend_request(friend_id: int, current_user_id: int = Query(...), db:
 
 
 
-# ❌ 친구 요청 거절 or 삭제
+# 친구 요청 거절 or 삭제
 @router.delete("/{friend_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_friend_request(friend_id: int, db: Session = Depends(get_db)):
     request = db.query(Friend).filter(Friend.id == friend_id).first()
@@ -120,7 +120,7 @@ def delete_friend_request(friend_id: int, db: Session = Depends(get_db)):
     return
 
 
-# 📋 친구 목록 조회 (양방향)
+# 친구 목록 조회 (양방향)
 @router.get("/", response_model=List[FriendWithUser])
 def get_all_friends(current_user_id: int = Query(...), db: Session = Depends(get_db)):
     friends = db.query(Friend).filter(
@@ -131,7 +131,7 @@ def get_all_friends(current_user_id: int = Query(...), db: Session = Depends(get
     return [build_friend_response(f, current_user_id) for f in friends]
 
 
-# 📋 받은 친구 요청 목록
+# 받은 친구 요청 목록
 @router.get("/requests/received", response_model=List[FriendWithUser])
 def get_received_requests(current_user_id: int = Query(...), db: Session = Depends(get_db)):
     requests = db.query(Friend).filter(
@@ -142,7 +142,7 @@ def get_received_requests(current_user_id: int = Query(...), db: Session = Depen
     return [build_friend_response(f, current_user_id) for f in requests]
 
 
-# 📋 보낸 친구 요청 목록
+# 보낸 친구 요청 목록
 @router.get("/requests/sent", response_model=List[FriendWithUser])
 def get_sent_requests(current_user_id: int = Query(...), db: Session = Depends(get_db)):
     requests = db.query(Friend).filter(

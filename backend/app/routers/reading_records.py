@@ -20,7 +20,7 @@ def get_db():
 #사용자 책 등록
 @router.post("/", response_model=UserBookOut)
 def create_user_book(record: UserBookCreate, db: Session = Depends(get_db)):
-    # ✅ 읽을 예정
+    # 읽을 예정
     if record.status == "읽을 예정":
         if any([
             record.start_date, record.end_date,
@@ -28,7 +28,7 @@ def create_user_book(record: UserBookCreate, db: Session = Depends(get_db)):
         ]):
             raise HTTPException(400, detail="읽을 예정 상태에서는 기대평 외의 정보는 입력할 수 없습니다.")
 
-    # ✅ 읽는 중
+    # 읽는 중
     elif record.status == "읽는 중":
         if not record.start_date:
             raise HTTPException(400, detail="읽는 중 상태에서는 시작일이 필요합니다.")
@@ -37,7 +37,7 @@ def create_user_book(record: UserBookCreate, db: Session = Depends(get_db)):
         ]):
             raise HTTPException(400, detail="읽는 중 상태에서는 종료일, 별점, 리뷰는 입력할 수 없습니다.")
 
-    # ✅ 읽음
+    # 읽음
     elif record.status == "읽음":
         if not all([record.start_date, record.end_date]) or record.rating is None:
             raise HTTPException(400, detail="읽음 상태에서는 시작일, 종료일, 별점이 필수입니다.")
@@ -47,7 +47,7 @@ def create_user_book(record: UserBookCreate, db: Session = Depends(get_db)):
     else:
         raise HTTPException(400, detail="유효하지 않은 status 값입니다.")
 
-    # ✅ 등록 처리
+    # 등록 처리
     new_record = UserBook(**record.dict())
     db.add(new_record)
     db.commit()
@@ -103,7 +103,7 @@ def update_user_book(
     # 현재 상태 or 수정 요청의 상태 확인
     new_status = record.status or existing.status
 
-    # ✅ 상태별 유효성 검사
+    # 상태별 유효성 검사
     if new_status == "읽을 예정":
         if any([
             record.start_date, record.end_date,
@@ -133,7 +133,7 @@ def update_user_book(
     else:
         raise HTTPException(400, detail="유효하지 않은 status 값입니다.")
 
-    # ✅ 값 반영
+    # 값 반영
     for key, value in record.dict(exclude_unset=True).items():
         setattr(existing, key, value)
 

@@ -20,7 +20,6 @@ class Friend(Base):
     requested_at = Column(DateTime, default=datetime.utcnow)
     accepted_at = Column(DateTime, nullable=True)
 
-    # 🔁 관계 정의
     requester = relationship(
         "User",
         foreign_keys=[requester_id],
