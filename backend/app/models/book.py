@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
-from app.models.genre import book_genres_table  # ✅ 중간 테이블 import
+from app.models.genre import book_genres_table 
 
 class Book(Base):
     __tablename__ = "books"

@@ -5,6 +5,7 @@ from app.database import get_db
 from app.services.recommendation_service import recommend_books_by_genre
 from app.schemas.recommendation import RecommendedBook
 from app.services.recommendation_ai_service import get_ai_recommendations
+from app.services.recommendation_gpt_service import get_gpt_recommendations
 
 router = APIRouter(
     prefix="/recommendations",
@@ -25,6 +26,16 @@ def recommend_by_genre(user_id: int = Query(...), db: Session = Depends(get_db))
 @router.get("/ai", response_model=list[RecommendedBook])
 def recommend_ai_books(user_id: int = Query(...), db: Session = Depends(get_db)):
     recommendations = get_ai_recommendations(db, user_id)
+    if not recommendations:
+        raise HTTPException(status_code=404, detail="추천할 책이 없습니다.")
+    return recommendations
+
+@router.get("/gpt", response_model=list[RecommendedBook])
+def recommend_by_gpt(user_id: int = Query(...), db: Session = Depends(get_db)):
+    """
+    GPT를 사용하여 사용자 리뷰와 기대평 기반으로 책을 추천합니다.
+    """
+    recommendations = get_gpt_recommendations(db, user_id)
     if not recommendations:
         raise HTTPException(status_code=404, detail="추천할 책이 없습니다.")
     return recommendations
