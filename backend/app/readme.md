@@ -12,7 +12,6 @@
 cd app
 backend/app 에서 실행
 pip install -r requirements.txt
-pip install sentence-transformers scikit-learn
 
 ##이후 실행
 cd ..
