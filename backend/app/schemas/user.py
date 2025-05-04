@@ -3,6 +3,7 @@ from typing import Optional
 from datetime import datetime
 
 class UserCreate(BaseModel):
+    user_id: int
     user_name: str
     email: EmailStr
     profile_picture: Optional[str] = None
