@@ -23,3 +23,6 @@ uvicorn app.main:app --reload
 ## 주소
 http://localhost:8000/docs 접속
 
+## 초기 책 등록 순서
+books에서 /search 창으로 이동후 책 제목 검색
+/fetch 창에서 해당 책의 isbn 입력하여 서버 등록
