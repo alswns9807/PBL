@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from app.database import engine
-from app.models import user, book, reading_records, note , genre,friend #테이블 생성됨
+from app.models import user, book, reading_records, note , genre,follow #테이블 생성됨
 from app.routers import user as user_router 
 from app.routers import books as books_router
 from app.routers import reading_records as reading_router
 from app.routers import note as note_router
 from app.routers import statistics as statistics_router
-from app.routers import friend as friend_router
+from app.routers import follow as follow_router
 from app.routers import recommendation as recommendation_router
 
 app = FastAPI()
@@ -17,7 +17,7 @@ book.Base.metadata.create_all(bind=engine)
 reading_records.Base.metadata.create_all(bind=engine)
 note.Base.metadata.create_all(bind=engine)
 genre.Base.metadata.create_all(bind=engine)
-friend.Base.metadata.create_all(bind=engine)
+follow.Base.metadata.create_all(bind=engine)
 
 # 라우터 등록
 app.include_router(user_router.router)
@@ -25,7 +25,7 @@ app.include_router(reading_router.router)
 app.include_router(note_router.router)
 app.include_router(statistics_router.router)
 app.include_router(books_router.router, prefix="/books", tags=["Books"])
-app.include_router(friend_router.router)
+app.include_router(follow_router.router)
 app.include_router(recommendation_router.router)
 
 @app.get("/")

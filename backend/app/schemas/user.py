@@ -16,6 +16,8 @@ class UserOut(BaseModel):
     profile_picture: Optional[str]
     bio: Optional[str]
     create_at: datetime
+    followers_count: int
+    following_count: int
 
     class Config:
         from_attributes = True  # SQLAlchemy 모델 -> Pydantic 변환 허용

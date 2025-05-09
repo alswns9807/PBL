@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from app.database import get_db
 from app.models.user import User
+from app.models.follow import Follow
 from app.schemas.user import UserCreate, UserOut
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -31,3 +32,18 @@ def get_users(
         like = f"%{keyword}%"
         query = query.filter((User.user_name.ilike(like)) | (User.email.ilike(like)))
     return query.all()
+
+@router.get("/{user_id}", response_model=UserOut)
+def get_user_detail(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.user_id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
+
+    followers_count = db.query(Follow).filter(Follow.followed_id == user_id).count()
+    following_count = db.query(Follow).filter(Follow.follower_id == user_id).count()
+
+    return UserOut(
+        **user.__dict__,
+        followers_count=followers_count,
+        following_count=following_count
+    )
