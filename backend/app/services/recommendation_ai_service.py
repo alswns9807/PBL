@@ -70,7 +70,7 @@ def get_ai_recommendations(db: Session, user_id: int, top_k: int = 10):
     # 유사도 우선, 등록자 수 다음으로 정렬
     scored_books.sort(key=lambda x: (-x[1], -x[2]))
 
-    # 8. top_k 추출
+    # 8. top_k 추출 + 추천 이유 추가
     recommended = []
     for book, _, registered_count in scored_books[:top_k]:
         recommended.append({
@@ -79,7 +79,8 @@ def get_ai_recommendations(db: Session, user_id: int, top_k: int = 10):
             "author": book.author,
             "publisher": book.publisher,
             "cover_image": book.cover_image,
-            "registered_count": registered_count
+            "registered_count": registered_count,
+            "reason": "당신의 리뷰/기대평과 유사한 책"
         })
 
     return recommended

@@ -8,6 +8,7 @@ class RecommendedBook(BaseModel):
     publisher: str
     cover_image: Optional[str] = None
     registered_count: int
+    reason: Optional[str] = None
 
     class Config:
         orm_mode = True

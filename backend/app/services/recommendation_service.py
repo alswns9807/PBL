@@ -34,7 +34,7 @@ def recommend_books_by_genre(user_id: int, db: Session):
         .filter(~Book.isbn.in_(subquery))
         .group_by(Book.isbn)
         .order_by(func.count(UserBook.user_id).desc())
-        .limit(10)
+        .limit(20)
         .all()
     )
 
@@ -45,7 +45,32 @@ def recommend_books_by_genre(user_id: int, db: Session):
             "author": book.author,
             "publisher": book.publisher,
             "cover_image": book.cover_image,
-            "registered_count": count
+            "registered_count": count,
+            "reason": f"당신이 가장 많이 읽은 장르인 '{favorite_genre}' 기반 추천"
         }
         for book, count in results
     ]
+
+def unified_recommendation(user_id: int, db: Session, top_k: int = 10):
+    from app.services.recommendation_ai_service import get_ai_recommendations
+
+    max_ai = 7
+    max_genre = top_k - max_ai
+
+    # AI 기반 추천
+    ai_recs = get_ai_recommendations(db, user_id, top_k=max_ai)
+    seen_isbns = {book['isbn'] for book in ai_recs}
+
+    # 장르 기반 추천
+    genre_recs = recommend_books_by_genre(user_id, db)
+    genre_added = 0
+    for book in genre_recs:
+        if book['isbn'] not in seen_isbns and len(ai_recs) < top_k:
+            ai_recs.append(book)
+            seen_isbns.add(book['isbn'])
+            genre_added += 1
+        if genre_added >= max_genre:
+            break
+
+    return ai_recs
+
