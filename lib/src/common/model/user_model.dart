@@ -54,7 +54,7 @@ class UserModel extends Equatable {
       discription: discription ?? this.discription,
       followingsCount: followingsCount ?? this.followingsCount,
       followersCount: followersCount ?? this.followersCount,
-      reviewCounts: reviewCount ?? this.reviewCounts,
+      reviewCounts: reviewCount ?? reviewCounts,
     );
   }
 

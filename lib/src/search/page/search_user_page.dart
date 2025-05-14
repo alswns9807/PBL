@@ -9,8 +9,8 @@ import '../../common/enum/common_state_status.dart';
 import '../../common/model/naver_book_info.dart';
 import '../cubit/search_book_cubit.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class SearchUserPage extends StatelessWidget {
+  const SearchUserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class SearchPage extends StatelessWidget {
             child: SvgPicture.asset('assets/svg/icons/icon_arrow_back.svg'),
           ),
         ),
-        title: const AppFont('책 검색', size: 18),
+        title: const AppFont('유저 검색', size: 18),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -136,7 +136,7 @@ class _SearchResultViewState extends State<_SearchResultView> {
   Widget build(BuildContext context) {
     cubit = context.watch<SearchBookCubit>();
     if (cubit.state.status == CommonStateStatus.init) {
-      return _messageView('리뷰할 책을 찾아보세요.');
+      return _messageView('유저를 찾고 팔로우하세요.');
     }
     if (cubit.state.status == CommonStateStatus.loaded &&
         (cubit.state.result == null || cubit.state.result!.items!.isEmpty)) {

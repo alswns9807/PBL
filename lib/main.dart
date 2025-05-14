@@ -4,7 +4,6 @@ import 'package:book_mate/src/common/cubit/app_data_load_cubit.dart';
 import 'package:book_mate/src/common/cubit/authentication_cubit.dart';
 import 'package:book_mate/src/common/cubit/upload_cubit.dart';
 import 'package:book_mate/src/common/interceptor/custom_interceptor.dart';
-import 'package:book_mate/src/common/model/naver_book_search_option.dart';
 import 'package:book_mate/src/common/repository/authentication_repository.dart';
 import 'package:book_mate/src/common/repository/book_review_info_repository.dart';
 import 'package:book_mate/src/common/repository/naver_api_repository.dart';
@@ -72,6 +71,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AuthenticationCubit(
               context.read<AuthenticationRepository>(),
               context.read<UserRepository>(),
+              context.read<ReviewRepository>(),
               //context.read<ReviewRepository>(),
             ),
           ),

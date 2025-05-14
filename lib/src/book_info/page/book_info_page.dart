@@ -62,7 +62,7 @@ class BookInfoPage extends StatelessWidget {
 }
 
 class _ReviewerLayer extends StatelessWidget {
-  const _ReviewerLayer({super.key});
+  const _ReviewerLayer();
 
   Widget _noneReviewer() {
     return const Center(
@@ -125,7 +125,7 @@ class _ReviewerLayer extends StatelessWidget {
 
 class _BookSimpleInfoLayer extends StatelessWidget {
   final NaverBookInfo bookInfo;
-  const _BookSimpleInfoLayer(this.bookInfo, {super.key});
+  const _BookSimpleInfoLayer(this.bookInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +154,7 @@ class _BookSimpleInfoLayer extends StatelessWidget {
 
 class _BookDisplayLayer extends StatelessWidget {
   final NaverBookInfo bookInfo;
-  const _BookDisplayLayer(this.bookInfo, {super.key});
+  const _BookDisplayLayer(this.bookInfo);
 
   @override
   Widget build(BuildContext context) {

@@ -131,7 +131,7 @@ class SignupPage extends StatelessWidget {
 }
 
 class _UserProfileImageField extends StatelessWidget {
-  _UserProfileImageField({super.key});
+  _UserProfileImageField();
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -157,7 +157,7 @@ class _UserProfileImageField extends StatelessWidget {
 }
 
 class _NicknameField extends StatelessWidget {
-  const _NicknameField({super.key});
+  const _NicknameField();
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +195,7 @@ class _NicknameField extends StatelessWidget {
 }
 
 class _DiscriptionField extends StatelessWidget {
-  const _DiscriptionField({super.key});
+  const _DiscriptionField();
 
   @override
   Widget build(BuildContext context) {

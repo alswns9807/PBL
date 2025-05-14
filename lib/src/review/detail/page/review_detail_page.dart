@@ -61,7 +61,7 @@ class ReviewDetailPage extends StatelessWidget {
 }
 
 class _ReviewInfoWidget extends StatelessWidget {
-  const _ReviewInfoWidget({super.key});
+  const _ReviewInfoWidget();
 
   Widget _profile(ReviewDetailState state, BuildContext context) {
     if (state.review == null) return Container();

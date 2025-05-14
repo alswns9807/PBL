@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:book_mate/src/common/model/user_model.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -26,6 +25,7 @@ class AuthenticationRepository {
 
   Future<void> logout() async {
     await _firebaseAuth.signOut();
+    GoogleSignIn().signOut();
   }
 
   Future<void> signInWithGoogle() async {
@@ -37,6 +37,7 @@ class AuthenticationRepository {
       idToken: googleAuth?.idToken,
     );
     await _firebaseAuth.signInWithCredential(credential);
+    //userCredential을 postgreSQL에 저장하는 코드
   }
 
   String generateNonce([int length = 32]) {

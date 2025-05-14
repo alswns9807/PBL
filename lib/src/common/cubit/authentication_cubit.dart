@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:book_mate/src/common/model/user_model.dart';
+import 'package:book_mate/src/common/repository/review_repository.dart';
 import 'package:book_mate/src/common/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,8 @@ import '../repository/authentication_repository.dart';
 class AuthenticationCubit extends Cubit<AuthenticationState> with ChangeNotifier {
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
-  AuthenticationCubit(this._authenticationRepository, this._userRepository)
+  final ReviewRepository _reviewRepository;
+  AuthenticationCubit(this._authenticationRepository, this._userRepository, this._reviewRepository)
     : super(AuthenticationState());
 
   void init() {

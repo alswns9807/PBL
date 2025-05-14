@@ -62,7 +62,7 @@ class ReviewWriteCubit extends Cubit<ReviewWriteState> {
         updatedAt: DateTime.now(),
         reviewerUids: [state.reviewInfo!.reviewerUid!],
       );
-      _bookReviewInfoRepository.createBookReviewInfo(bookReviewInfo);
+      await _bookReviewInfoRepository.createBookReviewInfo(bookReviewInfo); //await 수정
     } else {
       //update
       bookReviewInfo.reviewerUids!.add(state.reviewInfo!.reviewerUid!);

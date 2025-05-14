@@ -14,7 +14,7 @@ class ReviewSliderBar extends StatefulWidget {
 }
 
 class _ReviewSliderBarState extends State<ReviewSliderBar> {
-  GlobalKey _parentKey = GlobalKey();
+  final GlobalKey _parentKey = GlobalKey();
   double position = 7;
   double minX = 7;
   double width = 0;

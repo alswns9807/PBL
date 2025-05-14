@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SvgPicture.asset('assets/svg/icons/apple_log.svg'),
+            SvgPicture.asset('assets/svg/icons/apple_logo.svg'),
             SizedBox(width: 20),
             AppFont('Apple로 계속하기', size: 14),
           ],

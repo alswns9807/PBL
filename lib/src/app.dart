@@ -1,4 +1,8 @@
-import 'package:book_mate/src/init/page/init_page.dart';
+import 'package:book_mate/src/chatting/chatting_list_page.dart';
+import 'package:book_mate/src/home/page/home_content_page.dart';
+import 'package:book_mate/src/profile/cubit/user_profile_cubit.dart';
+import 'package:book_mate/src/profile/cubit/user_review_cubit.dart';
+import 'package:book_mate/src/profile/page/user_profile_page.dart';
 import 'package:book_mate/src/review/detail/cubit/review_detail_cubit.dart';
 import 'package:book_mate/src/review/detail/page/review_detail_page.dart';
 import 'package:book_mate/src/review/write/cubit/review_write_cubit.dart';
@@ -6,9 +10,9 @@ import 'package:book_mate/src/review/write/page/review_write_page.dart';
 import 'package:book_mate/src/root/page/root_page.dart';
 import 'package:book_mate/src/search/cubit/search_book_cubit.dart';
 import 'package:book_mate/src/search/page/search_page.dart';
+import 'package:book_mate/src/search/page/search_user_page.dart';
 import 'package:book_mate/src/signup/cubit/signup_cubit.dart';
 import 'package:book_mate/src/signup/page/signup_page.dart';
-import 'package:book_mate/src/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +25,8 @@ import 'common/repository/book_review_info_repository.dart';
 import 'common/repository/naver_api_repository.dart';
 import 'common/repository/review_repository.dart';
 import 'common/repository/user_repository.dart';
+import 'home/cubit/recently_review_cubit.dart';
+import 'home/cubit/top_reviewer_cubit.dart';
 import 'home/page/home_page.dart';
 import 'login/page/login_page.dart';
 
@@ -44,9 +50,9 @@ class _AppState extends State<App> {
         var blockPageInAuthenticationState = ['/', '/login', '/signup'];
         switch (authStatus) {
           case AuthenticationStatus.authentication:
-            return blockPageInAuthenticationState.contains(state.location)
+            return blockPageInAuthenticationState.contains(state.uri.toString())
                 ? '/home'
-                : state.location;
+                : state.uri.toString();
           case AuthenticationStatus.unAuthenticated:
             return '/signup';
           case AuthenticationStatus.unknown:
@@ -86,6 +92,22 @@ class _AppState extends State<App> {
           ),
         ),
         GoRoute(
+          path: '/search-user',
+          builder: (context, state) => BlocProvider(
+            create: (context) =>
+                SearchBookCubit(context.read<NaverBookRepository>()),
+            child: const SearchUserPage(),
+          ),
+        ),
+        GoRoute(
+          path: '/chatting',
+          builder: (context, state) => BlocProvider(
+            create: (context) =>
+              TopReviewerCubit(context.read<UserRepository>()),
+            child: const ChattingListPage(),
+          ),
+        ),
+        GoRoute(
           path: '/home',
           builder: (context, state) => MultiBlocProvider(
             providers: [
@@ -98,6 +120,12 @@ class _AppState extends State<App> {
                 lazy: false,
                 create: (context) =>
                     TopReviewerCubit(context.read<UserRepository>()),
+              ),
+              BlocProvider(
+                create: (context) => UserReviewCubit(
+                  context.read<ReviewRepository>(),
+                  context.read<AuthenticationCubit>().state.user!.uid as String,
+                ),
               ),
             ],
             child: const HomePage(),
@@ -140,6 +168,28 @@ class _AppState extends State<App> {
               ),
               child: ReviewDetailPage(state.extra as NaverBookInfo)),
         ),
+        GoRoute(
+          path: '/profile/:uid',
+          builder: (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => UserProfileCubit(
+                  context.read<UserRepository>(),
+                  state.pathParameters['uid'] as String,
+                ),
+                lazy: false,
+              ),
+              BlocProvider(
+                create: (context) => UserReviewCubit(
+                  context.read<ReviewRepository>(),
+                  state.pathParameters['uid'] as String,
+                ),
+                lazy: false,
+              ),
+            ],
+            child: const UserProfilePage(),
+          ),
+        ),
       ],
     );
   }
@@ -151,7 +201,7 @@ class _AppState extends State<App> {
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           elevation: 0,
-          backgroundColor: const Color(0xff1C1C1C),
+          backgroundColor: Color(0xff1C1C1C),
           titleTextStyle: TextStyle(color: Colors.white)
         ),
         scaffoldBackgroundColor: const Color(0xff1C1C1C)

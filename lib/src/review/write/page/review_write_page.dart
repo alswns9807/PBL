@@ -119,7 +119,7 @@ class ReviewWritePage extends StatelessWidget {
 
 class _ReviewBox extends StatefulWidget {
   final String? initReview;
-  const _ReviewBox({super.key, this.initReview});
+  const _ReviewBox({this.initReview});
 
   @override
   State<_ReviewBox> createState() => _ReviewBoxState();
@@ -152,3 +152,4 @@ class _ReviewBoxState extends State<_ReviewBox> {
     );
   }
 }
+
