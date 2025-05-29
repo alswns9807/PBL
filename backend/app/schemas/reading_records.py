@@ -13,7 +13,7 @@ class UserBookBase(BaseModel):
     expectation: Optional[str] = Field(None, example=None)
 
 class UserBookCreate(UserBookBase):
-    user_id: int = Field(..., example=1)
+    user_id: str = Field(..., example=1)
     isbn: str = Field(..., example="9788956055461")
     is_public: Optional[bool] = Field(default=True, example=True)
     
@@ -23,7 +23,7 @@ class UserBookCreate(UserBookBase):
                 "status": "읽는 중",
                 "start_date": "2025-04-01",
                 "progress": 50,
-                "user_id": 1,
+                "user_id": "A1213",
                 "isbn": "9788956055461",
                 "is_public":True
             }
@@ -31,7 +31,7 @@ class UserBookCreate(UserBookBase):
 
 class UserBookOut(UserBookBase):
     user_book_id: int
-    user_id: int
+    user_id: str
     isbn: str
     created_at: datetime
     is_public: bool

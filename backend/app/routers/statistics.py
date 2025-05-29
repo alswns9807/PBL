@@ -27,7 +27,7 @@ router = APIRouter(
 
 
 @router.get("/user", response_model=UserStatisticsResponse)
-def get_user_statistics(user_id: int = Query(...), year: int = Query(datetime.now().year), db: Session = Depends(get_db)):
+def get_user_statistics(user_id: str = Query(...), year: int = Query(datetime.now().year), db: Session = Depends(get_db)):
     # 1. 해당 유저의 연도별 독서 기록 가져오기
     records = db.query(UserBook).filter(
         UserBook.user_id == user_id,
@@ -119,7 +119,7 @@ def get_user_statistics(user_id: int = Query(...), year: int = Query(datetime.no
 
 
 @router.get("/{user_id}/books-by-genre", response_model=list[BookByGenreOut])
-def get_books_by_genre(user_id: int, genre: str, db: Session = Depends(get_db)):
+def get_books_by_genre(user_id: str, genre: str, db: Session = Depends(get_db)):
     books = (
         db.query(Book)
         .join(UserBook, UserBook.isbn == Book.isbn)

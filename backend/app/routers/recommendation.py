@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 @router.get("/", response_model=list[RecommendedBook])
-def recommend_books(user_id: int = Query(...), db: Session = Depends(get_db)):
+def recommend_books(user_id: str = Query(...), db: Session = Depends(get_db)):
     """
     AI 기반 + 장르 기반 통합 추천 결과 제공 (최대 10개)
     """

@@ -143,7 +143,7 @@ def update_user_book(
 
 @router.get("/user/{user_id}", response_model=List[UserBookOut])
 def get_user_books_filtered(
-    user_id: int,
+    user_id: str,
     title: Optional[str] = Query(None, description="책 제목 필터"),
     status: Optional[str] = Query(None, description="상태 필터 (읽음, 읽는 중, 읽을 예정)"),
     db: Session = Depends(get_db)

@@ -30,7 +30,7 @@ def follow_user(request: FollowCreate, db: Session = Depends(get_db)):
     return follow
 
 @router.delete("/", status_code=204)
-def unfollow_user(follower_id: int = Query(...), followed_id: int = Query(...), db: Session = Depends(get_db)):
+def unfollow_user(follower_id: str = Query(...), followed_id: str = Query(...), db: Session = Depends(get_db)):
     relation = db.query(Follow).filter(
         Follow.follower_id == follower_id,
         Follow.followed_id == followed_id
@@ -42,19 +42,19 @@ def unfollow_user(follower_id: int = Query(...), followed_id: int = Query(...), 
     return
 
 @router.get("/followers", response_model=list[FollowUserInfo])
-def get_followers(user_id: int = Query(...), db: Session = Depends(get_db)):
+def get_followers(user_id: str = Query(...), db: Session = Depends(get_db)):
     follows = db.query(Follow).filter(Follow.followed_id == user_id).all()
     return [FollowUserInfo.from_orm(f.follower) for f in follows]
 
 @router.get("/following", response_model=list[FollowUserInfo])
-def get_following(user_id: int = Query(...), db: Session = Depends(get_db)):
+def get_following(user_id: str = Query(...), db: Session = Depends(get_db)):
     follows = db.query(Follow).filter(Follow.follower_id == user_id).all()
     return [FollowUserInfo.from_orm(f.followed) for f in follows]
 
 @router.get("/{followed_user_id}/recommendations", response_model=FollowRecommendationResponse)
 def get_followed_user_recommendations(
-    followed_user_id: int,
-    current_user_id: int = Query(...),  # 요청자
+    followed_user_id: str,
+    current_user_id: str = Query(...),  # 요청자
     db: Session = Depends(get_db)
 ):
     # 유저 존재 확인

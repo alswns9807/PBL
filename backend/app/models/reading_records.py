@@ -8,7 +8,7 @@ class UserBook(Base):
     __tablename__ = "user_book"
 
     user_book_id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user_id = Column(String(20), ForeignKey("users.user_id"), nullable=False)
     isbn = Column(String(20), ForeignKey("books.isbn"), nullable=False)
 
     status = Column(String(10), nullable=False)  # 읽음 / 읽는 중 / 읽을 예정

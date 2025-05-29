@@ -4,20 +4,20 @@ from datetime import datetime
 from typing import Optional, List
 
 class FollowCreate(BaseModel):
-    follower_id: int
-    followed_id: int
+    follower_id: str
+    followed_id: str
 
 class FollowResponse(BaseModel):
     id: int
-    follower_id: int
-    followed_id: int
+    follower_id: str
+    followed_id: str
     followed_at: datetime
 
     class Config:
         from_attributes = True
 
 class FollowUserInfo(BaseModel):
-    user_id: int
+    user_id: str
     user_name: str
     email: str
 
@@ -37,7 +37,7 @@ class RecommendedBook(BaseModel):
         from_attributes = True
 
 class FollowRecommendationResponse(BaseModel):
-    followed_user_id: int
+    followed_user_id: str
     followed_user_name: str
     recommended_books: List[RecommendedBook]
 
