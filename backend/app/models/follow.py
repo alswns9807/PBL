@@ -8,8 +8,8 @@ class Follow(Base):
     __table_args__ = (UniqueConstraint("follower_id", "followed_id", name="unique_follow"),)
 
     id = Column(Integer, primary_key=True, index=True)
-    follower_id = Column(String(20), ForeignKey("users.user_id", ondelete="CASCADE"), nullable=False)
-    followed_id = Column(String(20), ForeignKey("users.user_id", ondelete="CASCADE"), nullable=False)
+    follower_id = Column(String(100), ForeignKey("users.user_id", ondelete="CASCADE"), nullable=False)
+    followed_id = Column(String(100), ForeignKey("users.user_id", ondelete="CASCADE"), nullable=False)
     followed_at = Column(DateTime, default=datetime.utcnow)
 
     follower = relationship("User", foreign_keys=[follower_id], backref="following_relations")
