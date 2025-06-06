@@ -16,6 +16,7 @@ class UserBookCreate(UserBookBase):
     user_id: str = Field(..., example=1)
     isbn: str = Field(..., example="9788956055461")
     is_public: Optional[bool] = Field(default=True, example=True)
+    note_content: Optional[str] = None
     
     class Config:
         schema_extra = {

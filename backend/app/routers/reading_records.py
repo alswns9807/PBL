@@ -48,10 +48,20 @@ def create_user_book(record: UserBookCreate, db: Session = Depends(get_db)):
         raise HTTPException(400, detail="유효하지 않은 status 값입니다.")
 
     # 등록 처리
-    new_record = UserBook(**record.dict())
+    new_record = UserBook(**record.dict(exclude={"note_content"}))
     db.add(new_record)
     db.commit()
     db.refresh(new_record)
+    
+    if record.note_content:
+        note = Note(
+            user_book_id=new_record.user_book_id,
+            content=record.note_content
+        )
+        db.add(note)
+        db.commit()
+        db.refresh(note)
+        
     return new_record
 
 
